@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>싱어롱 모음집</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕", sans-serif;
+      background-color: #f8fafc;
+      color: #1e293b;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      width: 100%;
+      max-width: 760px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-height: 640px;
+    }
+    .page {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+      padding: 32px 24px;
+    }
+    .page.active {
+      display: flex;
+    }
+    /* 표지 스타일 */
+    #page-cover {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    }
+    .cover-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      color: #0f172a;
+    }
+    .cover-subtitle {
+      font-size: 1.1rem;
+      color: #64748b;
+      margin-bottom: 40px;
+    }
+    .song-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      max-width: 380px;
+    }
+    .menu-btn {
+      padding: 16px 20px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+      background-color: #2563eb;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+      transition: background-color 0.2s, transform 0.1s;
+    }
+    .menu-btn:hover {
+      background-color: #1d4ed8;
+      transform: translateY(-2px);
+    }
+
+    /* 상단 내비게이션 (좌우, 표지 버튼 모양/크기 동일) */
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .nav-btn {
+      flex: 1;
+      height: 48px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #334155;
+      background-color: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.15s, border-color 0.15s;
+    }
+    .nav-btn:hover {
+      background-color: #e2e8f0;
+      border-color: #94a3b8;
+    }
+
+    /* 노래 헤더 및 가사 영역 */
+    .song-header {
+      margin-bottom: 24px;
+    }
+    .song-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #0f172a;
+      display: inline-block;
+      margin-right: 12px;
+    }
+    .song-artist {
+      font-size: 1.1rem;
+      color: #64748b;
+      font-weight: 500;
+    }
+    .lyrics-container {
+      flex: 1;
+      font-size: 1.25rem;
+      line-height: 2.1;
+      word-break: keep-all;
+      text-align: center;
+    }
+    .lyric-line {
+      min-height: 1.8em;
+    }
+
+    /* 가사 색상 */
+    .c-red {
+      color: #dc2626; 
+      font-weight: 600;
+    }
+    .c-blue {
+      color: #2563eb;
+      font-weight: 600;
+    }
+    .c-black {
+      color: #111827; 
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 표지 페이지 -->
+  <section id="page-cover" class="page active">
+    <h1 class="cover-title">함께 부르는 노래</h1>
+    <p class="cover-subtitle">Sing-Along Songbook</p>
+    <div class="song-menu">
+      <button class="menu-btn" onclick="showPage('page-1')">1. 사랑으로</button>
+      <button class="menu-btn" onclick="showPage('page-2')">2. 잘 했군, 잘 했어</button>
+      <button class="menu-btn" onclick="showPage('page-3')">3. 꿈의 대화</button>
+    </div>
+  </section>
+
+  <!-- 1. 사랑으로 (이전: 3번 / 다음: 2번) -->
+  <section id="page-1" class="page">
+    <div class="nav-bar">
+      <button class="nav-btn" onclick="showPage('page-3')">◀ 이전곡</button>
+      <button class="nav-btn" onclick="showPage('page-cover')">표지 목록</button>
+      <button class="nav-btn" onclick="showPage('page-2')">다음곡 ▶</button>
+    </div>
+    <div class="song-header">
+      <span class="song-title">사랑으로</span>
+      <span class="song-artist">해바라기 (1989)</span>
+    </div>
+    <div class="lyrics-container">
+      <div class="lyric-line c-blue">내가 살아가는 동안에 할 일이 또 하나 있지</div>
+      <div class="lyric-line c-blue">바람부는 벌판에 서 있어도 나는 외롭지 않아.</div>
+      <div class="lyric-line c-red">그러나 솔잎 하나 떨어지면 눈물따라 흐르고</div>
+      <div class="lyric-line c-red">우리 타는 가슴 가슴마다 햇살은 다시 떠오르네.</div>
+      <div class="lyric-line c-black">아 영원히 변치 않을 우리들의 사랑으로</div>
+      <div class="lyric-line c-black">어두운 곳에 손을 내밀어 밝혀 주리라.</div>
+      <div class="lyric-line c-red">내가 살아가는 동안에 할 일이 또 하나 있지</div>
+      <div class="lyric-line c-red">바람부는 벌판에 서 있어도 나는 외롭지 않아.</div>
+      <div class="lyric-line c-blue">그러나 솔잎 하나 떨어지면 눈물따라 흐르고</div>
+      <div class="lyric-line c-blue">우리 타는 가슴 가슴마다 햇살은 다시 떠오르네.</div>
+      <div class="lyric-line c-black">아 영원히 변치 않을 우리들의 사랑으로</div>
+      <div class="lyric-line c-black">어두운 곳에 손을 내밀어 밝혀 주리라.</div>
+      <div class="lyric-line c-blue">아아 영원히 변치 않을 우리들의 사랑으로</div>
+      <div class="lyric-line c-red">어두운 곳에 손을 밝혀주리라</div>
+      <div class="lyric-line c-black">라라라라라~~우리들의 사랑으로 </div>      
+      <div class="lyric-line c-black">어두운곳에 손을 내밀어 밝혀 주리라</div>
+    </div>
+  </section>
+
+  <!-- 2. 잘 했군, 잘 했어 (이전: 1번 / 다음: 3번) -->
+  <section id="page-2" class="page">
+    <div class="nav-bar">
+      <button class="nav-btn" onclick="showPage('page-1')">◀ 이전곡</button>
+      <button class="nav-btn" onclick="showPage('page-cover')">표지 목록</button>
+      <button class="nav-btn" onclick="showPage('page-3')">다음곡 ▶</button>
+    </div>
+    <div class="song-header">
+      <span class="song-title">잘 했군, 잘 했어</span>
+      <span class="song-artist">하춘화 (1976)</span>
+    </div>
+    <div class="lyrics-container">
+      <div class="lyric-line"><span class="c-red">영감</span> <span class="c-blue">(왜 불러?)</span></div>
+      <div class="lyric-line"><span class="c-red">뒷뜰에 뛰어놀던 병아리 한 쌍을 보았소?</span> <span class="c-blue">(보았지)</span></div>
+      <div class="lyric-line"><span class="c-red">어쨌소?</span> <span class="c-blue">(이 몸이 늙어서 몸보신하려고 먹었지)</span></div>
+      <div class="lyric-line c-red">잘했군, 잘했어</div>
+      <div class="lyric-line c-black">잘했군, 잘했군, 잘했어</div>
+      <div class="lyric-line c-red">그러게 내 영감이라지</div>
+      <div class="lyric-line"><span class="c-blue">마누라</span> <span class="c-red">(왜 불러요?)</span></div>
+      <div class="lyric-line"><span class="c-blue">외양간 매어 놓은 얼룩이 황소를 보았나?</span> <span class="c-red">(보았죠)</span></div>
+      <div class="lyric-line"><span class="c-blue">어쨌나?</span> <span class="c-red">(친정집 오라비 장가들 밑천에 주었지)</span></div>
+      <div class="lyric-line c-blue">잘했군, 잘했어</div>
+      <div class="lyric-line c-black">잘했군, 잘했군, 잘했어</div>
+      <div class="lyric-line c-blue">그러게 내 마누라지</div>
+      <div class="lyric-line"><span class="c-red">영감</span> <span class="c-blue">(왜 불러?)</span></div>
+      <div class="lyric-line"><span class="c-red">사랑채 비워주고 십만원 전세를 받았소?</span> <span class="c-blue">(받았지)</span></div>
+      <div class="lyric-line"><span class="c-red">어쨌소?</span> <span class="c-blue">(서양춤 추려고 쌍나팔 전축을 사왔지)</span></div>
+      <div class="lyric-line c-red">잘했군, 잘했어</div>
+      <div class="lyric-line c-black">잘했군, 잘했군, 잘했어</div>
+      <div class="lyric-line c-red">그러게 내 영감이라지</div>
+      <div class="lyric-line"><span class="c-blue">마누라</span> <span class="c-red">(왜 불러요?)</span></div>
+      <div class="lyric-line"><span class="c-blue">딱정댁 마나님네 술값의 독촉을 왔었나?</span> <span class="c-red">(왔었죠)</span></div>
+      <div class="lyric-line"><span class="c-blue">뭐랬나?</span> <span class="c-red">(술병을 고치려고 지리산 약 캐러 갔다 했지)</span></div>
+      <div class="lyric-line c-blue">잘했군, 잘했어</div>
+      <div class="lyric-line c-black">잘했군, 잘했군, 잘했어</div>
+      <div class="lyric-line c-blue">그러게 내 마누라지</div>
+    </div>
+  </section>
+
+  <!-- 3. 꿈의 대화 (이전: 2번 / 다음: 1번) -->
+  <section id="page-3" class="page">
+    <div class="nav-bar">
+      <button class="nav-btn" onclick="showPage('page-2')">◀ 이전곡</button>
+      <button class="nav-btn" onclick="showPage('page-cover')">표지 목록</button>
+      <button class="nav-btn" onclick="showPage('page-1')">다음곡 ▶</button>
+    </div>
+    <div class="song-header">
+      <span class="song-title">꿈의 대화</span>
+      <span class="song-artist">이범용, 한명훈 (1980)</span>
+    </div>
+    <div class="lyrics-container">
+      <div class="lyric-line c-blue">땅거미 내려앉아 어두운 거리에</div>
+      <div class="lyric-line c-blue">가만히 너에게 나의 꿈 들려주네</div>
+      <div class="lyric-line c-black">에 에 에 에 에 에 에 에</div>
+      <div class="lyric-line c-red">조용한 호수가에 아무도 없는 곳에</div>
+      <div class="lyric-line c-red">우리의 나무집을 둘이서 짓는다</div>
+      <div class="lyric-line c-black">흰눈이 온 세상을 깨끗이 덮으면</div>
+      <div class="lyric-line c-black">작은 불 피워 놓고 사랑을 하리라</div>
+      <div class="lyric-line c-blue">내가 제일 좋아하는 별들이 불 밝히리</div>
+      <div class="lyric-line c-red">내가 제일 좋아하는 창가에 마주 앉아</div>
+      <div class="lyric-line c-black">따뜻이 서로의 빈 곳을 채우리</div>
+      <div class="lyric-line c-black">네눈에 반짝이는 별빛을 헤리라</div>
+      <div class="lyric-line c-blue">외로움이 없단다 우리들의 꿈 속엔</div>
+      <div class="lyric-line c-red">서러움도 없어라 너와 나의 눈빛에</div>
+      <div class="lyric-line c-black">마음 깊은 곳에서 우리 함께 나누자</div>
+      <div class="lyric-line c-black">너와 나만의 꿈의 대화를</div>
+      <div class="lyric-line c-red">외로움이 없단다 우리들의 꿈 속엔</div>
+      <div class="lyric-line c-blue">서러움도 없어라 너와 나의 눈빛에</div>
+      <div class="lyric-line c-black">마음 깊은 곳에서 우리 함께 나누자 너와 나</div>
+      <div class="lyric-line c-black">너와 나 너와 나만의 꿈의 대화를</div>
+      <div class="lyric-line c-black">에 에 에 에 에 에 에 에</div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  function showPage(pageId) {
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(page => page.classList.remove('active'));
+    
+    const targetPage = document.getElementById(pageId);
+    if (targetPage) {
+      targetPage.classList.add('active');
+      window.scrollTo(0, 0);
+    }
+  }
+</script>
+
+</body>
+</html>
